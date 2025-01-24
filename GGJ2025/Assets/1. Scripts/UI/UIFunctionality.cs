@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VDFramework;
 
 namespace UI
@@ -7,11 +8,36 @@ namespace UI
     {
         public void Quit()
         {
-#if UNITY_EDITOR
+#if !UNITY_EDITOR
             UnityEditor.EditorApplication.ExitPlaymode();
-			return;
+#else
+			UnityEngine.Application.Quit();
 #endif
-			Application.Quit();
+		}
+
+		public void LoadScene(int buildIndex)
+		{
+			SceneManager.LoadScene(buildIndex);
+		}
+
+		public void LoadNextScene()
+		{
+			int buildIndex = SceneManager.GetActiveScene().buildIndex + 1;
+			buildIndex %= SceneManager.sceneCountInBuildSettings;
+			
+			LoadScene(buildIndex);
+		}
+
+		public void LoadPreviousScene()
+		{
+			int buildIndex = SceneManager.GetActiveScene().buildIndex - 1;
+
+			if (buildIndex < 0)
+			{
+				buildIndex = SceneManager.sceneCountInBuildSettings - 1;
+			}
+			
+			LoadScene(buildIndex);
 		}
     }
 }
