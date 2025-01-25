@@ -1869,6 +1869,8 @@ MonoBehaviour:
   movementDirectionInput: {fileID: -4843770421584549705, guid: 372266c4f7d7f0d4f8482849c5ac0567, type: 3}
   walkInput: {fileID: 8646127351710004099, guid: 372266c4f7d7f0d4f8482849c5ac0567, type: 3}
   runInput: {fileID: -838484884508461410, guid: 372266c4f7d7f0d4f8482849c5ac0567, type: 3}
+  runIsToggle: 0
+  walkIsToggle: 1
 --- !u!114 &5583130583664167808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1885,6 +1887,77 @@ MonoBehaviour:
   walkSpeed: 2.5
   jogSpeed: 5
   runSpeed: 8
+  reachTargetVelocityCurve:
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 5
+        outSlope: 5
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.2
+        value: 1
+        inSlope: 5
+        outSlope: 5
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    minTime: 0
+    maxTime: 0
+    minValue: 0
+    maxValue: 0
+    ValueA: 0
+    ValueB: 0
+  stopMovingCurve:
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.2809208
+        value: 0.9613531
+        inSlope: 0.87584484
+        outSlope: 0.87584484
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.21569769
+      - serializedVersion: 3
+        time: 0.5
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    minTime: 0
+    maxTime: 0
+    minValue: 0
+    maxValue: 0
+    ValueA: 0
+    ValueB: 0
 --- !u!143 &5583130583664167809
 CharacterController:
   m_ObjectHideFlags: 0
