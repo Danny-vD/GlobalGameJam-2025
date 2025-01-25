@@ -7,7 +7,6 @@ namespace InputManagementPackage.Enums
 	/// </summary>
 	public enum ControlType
 	{
-		Player,
-		UI,
+		Main,
 	}
 }

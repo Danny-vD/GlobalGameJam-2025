@@ -17,16 +17,38 @@ namespace PauseManagement
 
 		private void OnEnable()
 		{
-			pauseInput.action.performed       += Pause;
-			resumeInput.action.performed      += Resume;
-			togglePauseInput.action.performed += TogglePause;
+			if (!ReferenceEquals(pauseInput, null))
+			{
+				pauseInput.action.performed += Pause;
+			}
+
+			if (!ReferenceEquals(resumeInput, null))
+			{
+				resumeInput.action.performed += Resume;
+			}
+
+			if (!ReferenceEquals(togglePauseInput, null))
+			{
+				togglePauseInput.action.performed += TogglePause;
+			}
 		}
 
 		private void OnDisable()
 		{
-			pauseInput.action.performed       -= Pause;
-			resumeInput.action.performed      -= Resume;
-			togglePauseInput.action.performed -= TogglePause;
+			if (!ReferenceEquals(pauseInput, null))
+			{
+				pauseInput.action.performed -= Pause;
+			}
+
+			if (!ReferenceEquals(resumeInput, null))
+			{
+				resumeInput.action.performed -= Resume;
+			}
+
+			if (!ReferenceEquals(togglePauseInput, null))
+			{
+				togglePauseInput.action.performed -= TogglePause;
+			}
 		}
 
 		public void Pause(InputAction.CallbackContext callbackContext)
