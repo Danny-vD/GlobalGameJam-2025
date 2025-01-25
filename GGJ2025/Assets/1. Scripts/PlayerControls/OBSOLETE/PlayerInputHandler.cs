@@ -1,12 +1,14 @@
-﻿using System.Collections;
-using PlayerControls.Enums;
+﻿using System;
+using System.Collections;
+using PlayerControls.OBSOLETE;
+using PlayerControls.OBSOLETE.Enums;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VDFramework;
 
 namespace PlayerControls
 {
-	[RequireComponent(typeof(PlayerMovement))]
+	[RequireComponent(typeof(PlayerMovement)), Obsolete]
 	public class PlayerInputHandler : BetterMonoBehaviour
 	{
 		[Header("Input")]

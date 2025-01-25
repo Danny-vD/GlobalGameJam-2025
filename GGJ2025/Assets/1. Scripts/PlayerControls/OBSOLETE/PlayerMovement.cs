@@ -1,13 +1,19 @@
-﻿using System.Collections;
-using PlayerControls.Enums;
+﻿using System;
+using System.Collections;
+using PlayerControls.OBSOLETE.Enums;
 using UnityEngine;
 using UtilityPackage.Utility.MathUtil;
 using VDFramework;
 
-namespace PlayerControls
+namespace PlayerControls.OBSOLETE
 {
+	[Obsolete]
 	public class PlayerMovement : BetterMonoBehaviour
 	{
+		public Vector3 Velocity { get; set; } = Vector3.zero;
+
+		public Vector3 TargetVelocity { get; set; } = Vector3.zero;
+
 		[SerializeField]
 		private Transform cameraTransform;
 
@@ -27,10 +33,6 @@ namespace PlayerControls
 
 		[SerializeField]
 		private InterpolationAlongCurve stopMovingCurve;
-
-		public Vector3 Velocity { get; set; } = Vector3.zero;
-
-		public Vector3 TargetVelocity { get; set; } = Vector3.zero;
 
 		public bool IsStopping => TargetVelocity == Vector3.zero;
 
@@ -67,7 +69,7 @@ namespace PlayerControls
 
 				characterController.Move(Velocity * Time.deltaTime);
 				Debug.Log(Velocity.magnitude);
-				
+
 				yield return null;
 			}
 
@@ -84,9 +86,10 @@ namespace PlayerControls
 				_ => 0,
 			};
 
+			TargetVelocity = speed * TransformDirectionToCameraLocal(direction);
+			curveTime      = 0;
+
 			previousVelocity = Velocity;
-			TargetVelocity   = speed * TransformDirectionToCameraLocal(direction);
-			curveTime        = 0;
 
 			updateSpeedCoroutine ??= StartCoroutine(UpdateSpeed());
 		}
@@ -95,6 +98,8 @@ namespace PlayerControls
 		{
 			TargetVelocity = Vector3.zero;
 			curveTime      = 0;
+
+			previousVelocity = Velocity;
 		}
 
 		private Vector3 TransformDirectionToCameraLocal(Vector2 direction)
@@ -104,13 +109,16 @@ namespace PlayerControls
 				return direction;
 			}
 
-			Vector3 cameraRight = cameraTransform.right;
-			cameraRight.y = 0;
-			cameraRight.Normalize();
-
+			Vector3 localUp = transform.up;
+			
 			Vector3 cameraForward = cameraTransform.forward;
-			cameraForward.y = 0;
+			cameraForward = Vector3.ProjectOnPlane(cameraForward, localUp);
 			cameraForward.Normalize();
+
+			Vector3 cameraRight = cameraTransform.right;
+			cameraRight   = Vector3.ProjectOnPlane(cameraRight, localUp);
+			cameraRight.Normalize();
+			
 
 			Vector3 result = cameraRight * direction.x;
 			result += cameraForward * direction.y;
