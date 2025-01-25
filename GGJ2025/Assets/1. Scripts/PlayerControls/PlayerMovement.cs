@@ -1,5 +1,7 @@
-﻿using PlayerControls.Enums;
+﻿using System.Collections;
+using PlayerControls.Enums;
 using UnityEngine;
+using UtilityPackage.Utility.MathUtil;
 using VDFramework;
 
 namespace PlayerControls
@@ -8,22 +10,73 @@ namespace PlayerControls
 	{
 		[SerializeField]
 		private Transform cameraTransform;
-		
+
 		[Header("Speed")]
 		[SerializeField]
 		private float walkSpeed = 2.5f;
-		
+
 		[SerializeField]
 		private float jogSpeed = 5f;
-		
+
 		[SerializeField]
 		private float runSpeed = 8f;
-		
+
+		[Header("Curve")]
+		[SerializeField]
+		private InterpolationAlongCurve reachTargetVelocityCurve;
+
+		[SerializeField]
+		private InterpolationAlongCurve stopMovingCurve;
+
+		public Vector3 Velocity { get; set; } = Vector3.zero;
+
+		public Vector3 TargetVelocity { get; set; } = Vector3.zero;
+
+		public bool IsStopping => TargetVelocity == Vector3.zero;
+
 		private CharacterController characterController;
+
+		private Vector3 previousVelocity = Vector3.zero;
+
+		private float curveTime;
+
+		private Coroutine updateSpeedCoroutine;
 
 		private void Awake()
 		{
 			characterController = GetComponent<CharacterController>();
+		}
+
+		private IEnumerator UpdateSpeed()
+		{
+			while (TargetVelocity != Vector3.zero || Velocity != Vector3.zero)
+			{
+				yield return new WaitForEndOfFrame();
+
+				curveTime += Time.deltaTime;
+
+				InterpolationAlongCurve currentCurve = IsStopping ? stopMovingCurve : reachTargetVelocityCurve;
+
+				if (curveTime < currentCurve.MaxTime)
+				{
+					float lerpValue = currentCurve.EvaluateCurve(curveTime);
+
+					Velocity = Vector3.Lerp(previousVelocity, TargetVelocity, lerpValue);
+				}
+				else
+				{
+					Velocity = TargetVelocity;
+
+					if (!IsStopping)
+					{
+						TargetVelocity = Vector3.zero;
+					}
+				}
+				
+				characterController.Move(Velocity);
+			}
+
+			updateSpeedCoroutine = null;
 		}
 
 		public void Move(MovementType movementType, Vector2 direction)
@@ -36,7 +89,17 @@ namespace PlayerControls
 				_ => 0,
 			};
 
-			characterController.Move(speed * Time.deltaTime * TransformDirectionToCameraLocal(direction));
+			previousVelocity = Velocity;
+			TargetVelocity   = speed * Time.deltaTime * TransformDirectionToCameraLocal(direction);
+			curveTime        = 0;
+
+			updateSpeedCoroutine ??= StartCoroutine(UpdateSpeed());
+		}
+
+		public void StopMoving()
+		{
+			TargetVelocity = Vector3.zero;
+			curveTime      = 0;
 		}
 
 		private Vector3 TransformDirectionToCameraLocal(Vector2 direction)
@@ -53,7 +116,7 @@ namespace PlayerControls
 			Vector3 cameraForward = cameraTransform.forward;
 			cameraForward.y = 0;
 			cameraForward.Normalize();
-			
+
 			Vector3 result = cameraRight * direction.x;
 			result += cameraForward * direction.y;
 
