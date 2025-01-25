@@ -99,6 +99,8 @@ namespace PlayerControls
 				playerMovement.Move(GetCurrentMovementType(), GetInputMovementDirection(out _));
 				yield return null;
 			}
+
+			// ReSharper disable once IteratorNeverReturns | Reason: Coroutine is manually stopped
 		}
 
 		private void StartRunning(InputAction.CallbackContext obj)

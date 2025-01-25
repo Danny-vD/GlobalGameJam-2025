@@ -51,29 +51,24 @@ namespace PlayerControls
 		{
 			while (TargetVelocity != Vector3.zero || Velocity != Vector3.zero)
 			{
-				yield return new WaitForEndOfFrame();
-
-				curveTime += Time.deltaTime;
-
 				InterpolationAlongCurve currentCurve = IsStopping ? stopMovingCurve : reachTargetVelocityCurve;
 
 				if (curveTime < currentCurve.MaxTime)
 				{
 					float lerpValue = currentCurve.EvaluateCurve(curveTime);
+					curveTime += Time.deltaTime;
 
 					Velocity = Vector3.Lerp(previousVelocity, TargetVelocity, lerpValue);
 				}
 				else
 				{
 					Velocity = TargetVelocity;
-
-					if (!IsStopping)
-					{
-						TargetVelocity = Vector3.zero;
-					}
 				}
+
+				characterController.Move(Velocity * Time.deltaTime);
+				Debug.Log(Velocity.magnitude);
 				
-				characterController.Move(Velocity);
+				yield return null;
 			}
 
 			updateSpeedCoroutine = null;
@@ -90,7 +85,7 @@ namespace PlayerControls
 			};
 
 			previousVelocity = Velocity;
-			TargetVelocity   = speed * Time.deltaTime * TransformDirectionToCameraLocal(direction);
+			TargetVelocity   = speed * TransformDirectionToCameraLocal(direction);
 			curveTime        = 0;
 
 			updateSpeedCoroutine ??= StartCoroutine(UpdateSpeed());
