@@ -177,7 +177,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: b0fe517c4b423b644be69ac56b7be116, type: 3}
+    m_Motion: {fileID: 2590348802740513393, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
     m_Threshold: -30
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -185,7 +185,7 @@ BlendTree:
     m_DirectBlendParameter: HorizontalSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 94b765951a612a8459516c926fb4e55a, type: 3}
+    m_Motion: {fileID: 2590348802740513393, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
     m_Threshold: 5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -643,7 +643,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkRunBlend
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101739494239365552}
@@ -707,7 +707,7 @@ AnimatorStateMachine:
     m_Position: {x: 276, y: 300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102387452281295614}
-    m_Position: {x: 444, y: 132, z: 0}
+    m_Position: {x: 440, y: 130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102890583206190730}
     m_Position: {x: 280, y: -10, z: 0}
