@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using PauseManagement.Events;
+using UnityEngine;
+using VDFramework.EventSystem;
 using VDFramework.Singleton;
 
 namespace PauseManagement
@@ -46,6 +48,8 @@ namespace PauseManagement
 			
 			IsPaused       = true;
 			Time.timeScale = 0;
+			
+			EventManager.RaiseEvent(new GamePausedEvent());
 		}
 
 		public static void Resume()
@@ -57,6 +61,8 @@ namespace PauseManagement
 			
 			IsPaused       = false;
 			Time.timeScale = previousTimeScale;
+			
+			EventManager.RaiseEvent(new GameResumedEvent());
 		}
 
 		public static void SetPause(bool paused)
