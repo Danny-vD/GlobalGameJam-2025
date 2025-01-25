@@ -9,6 +9,7 @@ namespace PlayerControls
 	[RequireComponent(typeof(PlayerMovement))]
 	public class PlayerInputHandler : BetterMonoBehaviour
 	{
+		[Header("Input")]
 		[SerializeField]
 		private InputActionReference movementDirectionInput;
 
@@ -17,6 +18,13 @@ namespace PlayerControls
 
 		[SerializeField]
 		private InputActionReference runInput;
+
+		[Header("Settings")]
+		[SerializeField]
+		private bool runIsToggle;
+
+		[SerializeField]
+		private bool walkIsToggle;
 
 		private bool shouldRun;
 		private bool shouldWalk;
@@ -79,6 +87,7 @@ namespace PlayerControls
 			if (moveCoroutine != null)
 			{
 				StopCoroutine(moveCoroutine);
+				playerMovement.StopMoving();
 				moveCoroutine = null;
 			}
 		}
@@ -94,22 +103,42 @@ namespace PlayerControls
 
 		private void StartRunning(InputAction.CallbackContext obj)
 		{
-			shouldRun = true;
+			if (runIsToggle)
+			{
+				shouldRun = !shouldRun;
+			}
+			else
+			{
+				shouldRun = true;
+			}
 		}
 
 		private void StopRunning(InputAction.CallbackContext obj)
 		{
-			shouldRun = false;
+			if (!runIsToggle)
+			{
+				shouldRun = false;
+			}
 		}
 
 		private void StartWalking(InputAction.CallbackContext obj)
 		{
-			shouldWalk = true;
+			if (walkIsToggle)
+			{
+				shouldWalk = !shouldWalk;
+			}
+			else
+			{
+				shouldWalk = true;
+			}
 		}
 
 		private void StopWalking(InputAction.CallbackContext obj)
 		{
-			shouldWalk = false;
+			if (!walkIsToggle)
+			{
+				shouldWalk = false;
+			}
 		}
 
 		private Vector2 GetInputMovementDirection(out bool isMoving)
