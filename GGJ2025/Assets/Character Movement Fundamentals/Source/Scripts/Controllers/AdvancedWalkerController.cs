@@ -584,11 +584,15 @@ namespace CMF
 		//This function is called when the player has initiated a dodge;
 		void OnDodgeStart()
 		{
+			dodgeInputIsLocked = true;
+			
 			DodgeBegan();
 		}
 
 		public override void DodgeEnded()
 		{
+			dodgeInputIsLocked = false;
+			
 			currentControllerState = ControllerState.Grounded;
 			base.DodgeEnded();
 		}
