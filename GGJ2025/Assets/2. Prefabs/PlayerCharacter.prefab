@@ -5155,6 +5155,7 @@ GameObject:
   - component: {fileID: 5734311135877780779}
   - component: {fileID: 4391672961882566175}
   - component: {fileID: 263256948706831646}
+  - component: {fileID: 2827919311869140334}
   - component: {fileID: 1574753315526689044}
   - component: {fileID: 1294595161997774470}
   - component: {fileID: 2564462801932920223}
@@ -5263,6 +5264,18 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2827919311869140334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690547332561543337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 589c78a30f2c40c88e25d13ba1cada9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1574753315526689044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11019,6 +11032,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7263855654439503189}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7589393788644123352}
     - targetCorrespondingSourceObject: {fileID: 5637706364324373411, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7102210690551352626}
@@ -11138,6 +11154,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &7589393788644123352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3386436320131712456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea58715f912448fdb5846833b54d4aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerPerFailCondition:
+    serializedDictionary:
+    - key: 0
+      value: 
+    - key: 1
+      value: Fall
+    - key: 2
+      value: Fall
+    - key: 3
+      value: Fall
 --- !u!1 &7783143902468430650 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5637706364324373411, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
