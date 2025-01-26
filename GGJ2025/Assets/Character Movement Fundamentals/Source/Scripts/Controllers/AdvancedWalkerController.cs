@@ -100,6 +100,7 @@ namespace CMF
 
 		private void OnDisable()
 		{
+			SetMomentum(Vector3.zero);
 			mover.SetVelocity(Vector3.zero);
 		}
 
