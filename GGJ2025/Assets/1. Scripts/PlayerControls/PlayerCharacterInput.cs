@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace PlayerControls
 {
-	public class PlayerCharacterInput : CharacterInput, IMovementSpeedInputHandler, IMovementInputHandler
+	public class PlayerCharacterInput : CharacterInput, IMovementSpeedInputHandler
 	{
 		[Header("Input")]
 		[SerializeField]
@@ -20,6 +20,9 @@ namespace PlayerControls
 
 		[SerializeField]
 		private InputActionReference jumpInput;
+		
+		[SerializeField]
+		private InputActionReference dodgeInput;
 
 		[Header("Settings")]
 		[SerializeField]
@@ -59,7 +62,7 @@ namespace PlayerControls
 			return movementDirectionInput.action.ReadValue<Vector2>().y;
 		}
 		
-		public Vector2 GetInputMovementDirection(out bool isMoving)
+		public override Vector2 GetInputMovementDirection(out bool isMoving)
 		{
 			isMoving = movementDirectionInput.action.IsInProgress();
 
@@ -70,7 +73,12 @@ namespace PlayerControls
 		{
 			return jumpInput.action.IsPressed();
 		}
-		
+
+		public override bool IsDodgeKeyPressed()
+		{
+			return dodgeInput.action.IsPressed();
+		}
+
 		public MovementType GetCurrentMovementType()
 		{
 			if (shouldRun)

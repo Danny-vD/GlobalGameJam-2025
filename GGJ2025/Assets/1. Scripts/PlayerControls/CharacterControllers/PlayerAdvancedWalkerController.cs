@@ -19,22 +19,20 @@ namespace PlayerControls.CharacterControllers
 		private float runSpeed = 8f;
 
 		private IMovementSpeedInputHandler movementSpeedInputHandler;
-		private IMovementInputHandler movementInputHandler;
 
 		protected override void Setup()
 		{
 			movementSpeedInputHandler = GetComponent<IMovementSpeedInputHandler>();
-			movementInputHandler      = GetComponent<IMovementInputHandler>();
 		}
 
 		protected override Vector3 CalculateMovementDirection()
 		{
-			if (ReferenceEquals(movementInputHandler, null))
+			if (ReferenceEquals(characterInput, null))
 			{
 				return Vector3.zero;
 			}
 			
-			Vector2 inputDirection = movementInputHandler.GetInputMovementDirection(out bool isMoving);
+			Vector2 inputDirection = characterInput.GetInputMovementDirection(out bool isMoving);
 
 			if (!isMoving)
 			{

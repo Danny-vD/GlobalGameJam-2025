@@ -5303,6 +5303,7 @@ MonoBehaviour:
   walkInput: {fileID: 8646127351710004099, guid: 372266c4f7d7f0d4f8482849c5ac0567, type: 3}
   runInput: {fileID: -838484884508461410, guid: 372266c4f7d7f0d4f8482849c5ac0567, type: 3}
   jumpInput: {fileID: -8690678154531853868, guid: 372266c4f7d7f0d4f8482849c5ac0567, type: 3}
+  dodgeInput: {fileID: 4616369674831264879, guid: 372266c4f7d7f0d4f8482849c5ac0567, type: 3}
   runIsToggle: 0
   walkIsToggle: 1
 --- !u!114 &2564462801932920223
