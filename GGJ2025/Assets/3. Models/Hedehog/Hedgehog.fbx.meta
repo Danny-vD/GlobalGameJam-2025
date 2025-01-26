@@ -17,8 +17,7 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: Event BubblePopParticles has a time (2.289194) outside
-      the clip's valid range (0.000000..2.250000). It will never be fired
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -36,7 +35,7 @@ ModelImporter:
       takeName: ArmatureHedgehog|Idle
       internalID: 219351278494754752
       firstFrame: 0
-      lastFrame: 59
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -85,7 +84,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.24668874
+      - time: 0.20191261
         functionName: PlayFootstepSound
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -128,8 +127,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.9472527
+      - time: 0.8129244
         functionName: BubblePopParticles
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8262554
+        functionName: PlayBubblePop
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -251,8 +257,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.07770271
+      - time: 0.037901714
         functionName: BubblePopParticles
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.04800738
+        functionName: PlayBubblePop
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
