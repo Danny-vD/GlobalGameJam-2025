@@ -7725,11 +7725,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56478e4003244243aeb9939ea231cc92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cachedTransform: {fileID: 0}
+  cachedGameObject: {fileID: 0}
   movementDirectionInput: {fileID: -4843770421584549705, guid: 372266c4f7d7f0d4f8482849c5ac0567, type: 3}
   walkInput: {fileID: 8646127351710004099, guid: 372266c4f7d7f0d4f8482849c5ac0567, type: 3}
   runInput: {fileID: -838484884508461410, guid: 372266c4f7d7f0d4f8482849c5ac0567, type: 3}
   runIsToggle: 0
   walkIsToggle: 1
+  shouldRun: 0
+  shouldWalk: 0
+  playerMovement: {fileID: 0}
 --- !u!114 &1115499611
 MonoBehaviour:
   m_ObjectHideFlags: 0
