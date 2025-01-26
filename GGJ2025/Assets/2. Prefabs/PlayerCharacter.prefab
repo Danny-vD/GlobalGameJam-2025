@@ -5159,6 +5159,7 @@ GameObject:
   - component: {fileID: 1294595161997774470}
   - component: {fileID: 2564462801932920223}
   - component: {fileID: 6879351730723464718}
+  - component: {fileID: 2101848774470993399}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -5343,6 +5344,24 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3efdd4c11a4bdc54a9087ab115c1de9e, type: 3}
   jumpClip: {fileID: 8300000, guid: 99ab8a4503de1f448ad764a5c4cdf9cc, type: 3}
   landClip: {fileID: 8300000, guid: c212aa2d646dfe248b7c96b4f0e4cb27, type: 3}
+--- !u!114 &2101848774470993399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690547332561543337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd45b86caa74d99b3a30a6649aef08a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximumStamina: 100
+  staminaRegenerateCooldown: 2
+  regenerationRate: 25
+  runCost: 25
+  jumpCost: 25
+  dodgeCost: 25
 --- !u!1 &4815884237948396164
 GameObject:
   m_ObjectHideFlags: 0
