@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using PlayerControls.OBSOLETE.Enums;
+using PlayerControls.Enums;
 using UnityEngine;
 using UtilityPackage.Utility.MathUtil;
 using VDFramework;
