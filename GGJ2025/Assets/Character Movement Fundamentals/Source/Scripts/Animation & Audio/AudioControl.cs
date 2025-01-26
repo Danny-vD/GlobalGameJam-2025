@@ -102,7 +102,7 @@ namespace CMF
 			}
 		}
 
-		void PlayFootstepSound(float _movementSpeed)
+		public void PlayFootstepSound(float _movementSpeed)
 		{
 			int _footStepClipIndex = Random.Range(0, footStepClips.Length);
 			audioSource.PlayOneShot(footStepClips[_footStepClipIndex], audioClipVolume + audioClipVolume * Random.Range(-relativeRandomizedVolumeRange, relativeRandomizedVolumeRange));
@@ -124,7 +124,7 @@ namespace CMF
 			audioSource.PlayOneShot(jumpClip, audioClipVolume);
 		}
 
-        void PlayBubblePop()
+        public void PlayBubblePop()
         {
             audioSource.PlayOneShot(bubblePop, audioClipVolume + audioClipVolume * Random.Range(-relativeRandomizedVolumeRange, relativeRandomizedVolumeRange));
         }

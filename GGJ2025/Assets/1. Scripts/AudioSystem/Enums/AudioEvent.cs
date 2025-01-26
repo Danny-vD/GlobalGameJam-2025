@@ -16,6 +16,7 @@
 		
 		// Player
 		PlayerFootstep,
+		PlayerLanding,
 		PlayerJump,
 	}
 }
