@@ -7,7 +7,7 @@ namespace UI
     {
         public void Quit()
         {
-#if !UNITY_EDITOR
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.ExitPlaymode();
 #else
 			UnityEngine.Application.Quit();
