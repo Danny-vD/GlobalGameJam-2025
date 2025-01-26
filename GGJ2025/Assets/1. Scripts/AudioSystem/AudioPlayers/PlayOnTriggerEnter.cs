@@ -18,6 +18,5 @@ namespace AudioSystem.AudioPlayers
 		{
 			AudioPlayer.PlayAudio(audioEvent);
 		}
-
 	}
 }
