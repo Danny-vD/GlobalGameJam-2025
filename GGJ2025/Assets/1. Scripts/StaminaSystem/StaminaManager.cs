@@ -25,7 +25,7 @@ namespace StaminaSystem
 
 		/// <summary>
 		/// Invoked when the stamina reaches 0%.<br/>
-		/// argument: canKillPlayer
+		/// argument: canKill
 		/// </summary>
 		public event Action<bool> OnStaminaDepleted = delegate { };
 
@@ -46,10 +46,10 @@ namespace StaminaSystem
 
 		[SerializeField]
 		private float jumpCost = 25f;
-		
+
 		[SerializeField]
 		private float dodgeCost = 25f;
-		
+
 		private float currentStamina;
 
 		private Controller controller;
@@ -58,7 +58,7 @@ namespace StaminaSystem
 
 		private TimerHandle regeneratingCooldownTimer;
 		private bool allowRegenerating = true;
-		
+
 		private bool isJumping = false;
 		private bool isDodging = false;
 
@@ -96,12 +96,9 @@ namespace StaminaSystem
 		{
 			_ = characterInput.GetInputMovementDirection(out bool isMoving);
 
-			if (isMoving)
+			if (isMoving && movementSpeedInputHandler.GetCurrentMovementType() == MovementType.Run)
 			{
-				if (movementSpeedInputHandler.GetCurrentMovementType() == MovementType.Run)
-				{
-					DrainStamina(runCost, true);
-				}
+				DrainStamina(runCost * Time.fixedDeltaTime, true);
 			}
 			else if (allowRegenerating && !isJumping && !isDodging)
 			{
@@ -125,10 +122,10 @@ namespace StaminaSystem
 			{
 				return;
 			}
-			
+
 			ChangeStamina(delta, false);
 		}
-		
+
 		private void DrainStamina(float delta, bool canKill)
 		{
 			ChangeStamina(-delta, canKill);
@@ -136,22 +133,20 @@ namespace StaminaSystem
 
 		private void ChangeStamina(float delta, bool canKill)
 		{
-			canKill = canKill || currentStamina <= 0; 
-			
+			canKill = canKill || currentStamina <= 0;
+
 			currentStamina += delta;
-			
+
 			OnStaminaChanged.Invoke(GetStamina(), GetStaminaNormalized(), delta);
 
 			if (currentStamina <= 0)
 			{
 				OnStaminaDepleted.Invoke(canKill);
-				
+
 				if (canKill)
 				{
 					allowRegenerating = false;
-					EventManager.RaiseEvent(new PlayerFailedEvent(CauseOfFailure.StaminaDrained));
-
-					enabled = false; // Disable this script
+					enabled           = false; // Disable this script
 				}
 				else
 				{

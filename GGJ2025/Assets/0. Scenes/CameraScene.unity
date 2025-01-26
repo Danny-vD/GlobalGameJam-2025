@@ -473,6 +473,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overridePausedState: 0
   startPaused: 0
+--- !u!1 &527446280 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1649765888330897532, guid: f934208e61a2b304c807c68f4e1a67df, type: 3}
+  m_PrefabInstance: {fileID: 847510639730655900}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &603833950
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +527,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &913256785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 913256786}
+  - component: {fileID: 913256787}
+  m_Layer: 0
+  m_Name: Timer Manager Updater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &913256786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913256785}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &913256787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913256785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 62906614, guid: a85713c54a8b39e47967138814e75e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1023640472
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,14 +1000,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4690547332561543337, guid: f934208e61a2b304c807c68f4e1a67df, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 847510639730655917}
+      addedObject: {fileID: 847510639730655918}
   m_SourcePrefab: {fileID: 100100000, guid: f934208e61a2b304c807c68f4e1a67df, type: 3}
 --- !u!1 &847510639730655901 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4690547332561543337, guid: f934208e61a2b304c807c68f4e1a67df, type: 3}
   m_PrefabInstance: {fileID: 847510639730655900}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &847510639730655917
+--- !u!114 &847510639730655918
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -967,15 +1016,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 847510639730655901}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cd45b86caa74d99b3a30a6649aef08a, type: 3}
+  m_Script: {fileID: 11500000, guid: 771e3175d0a64af4bcf7fbdc93a28e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumStamina: 100
-  staminaRegenerateCooldown: 2
+  particleThresholds:
+    serializedDictionary:
+    - key: 25
+      value: {fileID: 527446280}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 913256786}
   - {fileID: 1465764445}
   - {fileID: 1023640476}
   - {fileID: 1064479614}
