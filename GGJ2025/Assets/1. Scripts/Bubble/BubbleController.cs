@@ -3,10 +3,14 @@ using VDFramework.EventSystem;
 
 public class BubbleController : MonoBehaviour
 {
+
+    [SerializeField]
+    private Animator canvasAnimator;
+
     // Trigger - passes through
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.isTrigger)
+        if (other.CompareTag("Player") || other.isTrigger && !other.CompareTag("Environment"))
         {
             return;
         }

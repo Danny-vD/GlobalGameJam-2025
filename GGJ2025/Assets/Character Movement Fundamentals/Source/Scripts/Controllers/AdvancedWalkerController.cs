@@ -100,7 +100,12 @@ namespace CMF
 
 		private void OnDisable()
 		{
+			SetMomentum(Vector3.zero);
 			mover.SetVelocity(Vector3.zero);
+
+			mover.enabled = false;
+
+			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 		}
 
 		//This function is called right after Awake(); It can be overridden by inheriting scripts;
@@ -579,9 +584,17 @@ namespace CMF
 		//This function is called when the player has initiated a dodge;
 		void OnDodgeStart()
 		{
-			//TODO: implement dodge
-
+			dodgeInputIsLocked = true;
+			
 			DodgeBegan();
+		}
+
+		public override void DodgeEnded()
+		{
+			dodgeInputIsLocked = false;
+			
+			currentControllerState = ControllerState.Grounded;
+			base.DodgeEnded();
 		}
 
 		//This function is called when the controller has lost ground contact, i.e. is either falling or rising, or generally in the air;

@@ -13,6 +13,7 @@ using VDFramework.Utility.TimerUtil.TimerHandles;
 
 namespace StaminaSystem
 {
+	[DefaultExecutionOrder(-1)] // Has to happen before the controller handles movement
 	public class StaminaManager : BetterMonoBehaviour
 	{
 		public event Action OnStaminaFull = delegate { };
@@ -96,7 +97,7 @@ namespace StaminaSystem
 		{
 			_ = characterInput.GetInputMovementDirection(out bool isMoving);
 
-			if (isMoving && movementSpeedInputHandler.GetCurrentMovementType() == MovementType.Run)
+			if (isMoving && movementSpeedInputHandler.GetCurrentMovementType() == MovementType.Run && controller.IsGrounded() && !isDodging)
 			{
 				DrainStamina(runCost * Time.fixedDeltaTime, true);
 			}
@@ -104,6 +105,8 @@ namespace StaminaSystem
 			{
 				RegenerateStamina(regenerationRate * Time.fixedDeltaTime);
 			}
+
+			Debug.Log($"{GetStamina()} | {GetStaminaNormalized()}%");
 		}
 
 		public float GetStamina()

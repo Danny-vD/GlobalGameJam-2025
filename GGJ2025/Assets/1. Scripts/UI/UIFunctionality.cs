@@ -38,5 +38,10 @@ namespace UI
 			
 			LoadScene(buildIndex);
 		}
+
+		public void LoadCurrentScene()
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
     }
 }

@@ -5518,7 +5518,7 @@ Transform:
   m_GameObject: {fileID: 5220182493922463497}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.29, z: 0}
+  m_LocalPosition: {x: 0, y: 0.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10979,6 +10979,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 9122804258078722817}
   m_SourcePrefab: {fileID: 100100000, guid: 8a8f7d53138f08f4b8d0903d9881190b, type: 3}
+--- !u!198 &5101698365853904628 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6654427881296085433, guid: 8a8f7d53138f08f4b8d0903d9881190b, type: 3}
+  m_PrefabInstance: {fileID: 1915605738146918221}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6112279583262514523 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5640394188786659862, guid: 8a8f7d53138f08f4b8d0903d9881190b, type: 3}
@@ -10998,14 +11003,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 326268657024784860}
   copyCoordinates: -1
-  copyLocalPosition: 0
+  copyLocalPosition: 1
   setLocalPosition: 1
   globalPositionOffset: {x: 0, y: 0, z: 0}
   parentPositionOffset: {x: 0, y: 0, z: 0}
   targetPositionOffset: {x: 0, y: 0, z: 0}
   localPositionOffset: {x: 0, y: 0, z: 0}
   copyAngles: 0
-  copyLocalRotation: 0
+  copyLocalRotation: 1
   setLocalRotation: 1
   globalRotationOffset: {x: 0, y: 0, z: 0}
   parentRotationOffset: {x: 0, y: 0, z: 0}
@@ -11103,6 +11108,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7589393788644123352}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 202781800563311420}
     - targetCorrespondingSourceObject: {fileID: 5637706364324373411, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7102210690551352626}
@@ -11239,11 +11247,24 @@ MonoBehaviour:
     - key: 0
       value: 
     - key: 1
-      value: Fall
+      value: Pop
     - key: 2
       value: Fall
     - key: 3
       value: Fall
+--- !u!114 &202781800563311420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3386436320131712456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ed8e6fb797587144a0073c3f05f4654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popParticleSystem: {fileID: 5101698365853904628}
 --- !u!1 &7783143902468430650 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5637706364324373411, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
@@ -11261,6 +11282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd6f5dcc8009cd4496e7714a1ca9567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasAnimator: {fileID: 0}
 --- !u!135 &827341760522072838
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11280,5 +11302,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.00843042
+  m_Radius: 0.011113166
   m_Center: {x: -0.0002597274, y: 0.012041463, z: 0.007764047}
