@@ -5,7 +5,7 @@ namespace GameplayEvents
 {
 	public class CheckpointActivateEvent : VDEvent<CheckpointActivateEvent>
 	{
-        public GameObject checkpoint;
+        public readonly GameObject checkpoint;
 
         public CheckpointActivateEvent(GameObject checkpoint)
         {
