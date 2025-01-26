@@ -3,6 +3,10 @@ using VDFramework.EventSystem;
 
 public class BubbleController : MonoBehaviour
 {
+
+    [SerializeField]
+    private Animator canvasAnimator;
+
     // Trigger - passes through
     private void OnTriggerEnter(Collider other)
     {
@@ -12,5 +16,6 @@ public class BubbleController : MonoBehaviour
         }
 
         EventManager.RaiseEvent(new GameplayEvents.PlayerFailedEvent(GameplayEvents.Enums.CauseOfFailure.BubblePopped));
+        canvasAnimator.SetTrigger("Death");
     }
 }
