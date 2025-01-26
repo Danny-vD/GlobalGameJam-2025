@@ -104,6 +104,8 @@ namespace CMF
 			mover.SetVelocity(Vector3.zero);
 
 			mover.enabled = false;
+
+			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 		}
 
 		//This function is called right after Awake(); It can be overridden by inheriting scripts;
