@@ -16,8 +16,8 @@ namespace StaminaSystem
 		private SerializableDictionary<float, ParticleSystem> particleThresholds;
 
 		private StaminaManager staminaManager;
-
-		private void Awake()
+        
+        private void Awake()
 		{
 			staminaManager = GetComponent<StaminaManager>();
 		}
@@ -34,7 +34,7 @@ namespace StaminaSystem
 			staminaManager.OnStaminaDepleted -= Fail;
 		}
 
-		private void OnStaminaChanged(float currentStamina, float normalizedStamina, float delta)
+        private void OnStaminaChanged(float currentStamina, float normalizedStamina, float delta)
 		{
 			bool activatedObject = false;
 

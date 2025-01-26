@@ -10,12 +10,11 @@ public class BubbleController : MonoBehaviour
     // Trigger - passes through
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.isTrigger)
+        if (other.CompareTag("Player") || other.isTrigger && !other.CompareTag("Environment"))
         {
             return;
         }
 
         EventManager.RaiseEvent(new GameplayEvents.PlayerFailedEvent(GameplayEvents.Enums.CauseOfFailure.BubblePopped));
-        canvasAnimator.SetTrigger("Death");
     }
 }
