@@ -13,7 +13,7 @@ namespace StaminaSystem
 	public class PlayerStaminaHandler : BetterMonoBehaviour
 	{
 		[SerializeField]
-		private SerializableDictionary<float, GameObject> particleThresholds;
+		private SerializableDictionary<float, ParticleSystem> particleThresholds;
 
 		private StaminaManager staminaManager;
 
@@ -40,11 +40,12 @@ namespace StaminaSystem
 
 			for (int i = particleThresholds.Count - 1; i >= 0; i--)
 			{
-				SerializableKeyValuePair<float, GameObject> pair = particleThresholds[i];
+				SerializableKeyValuePair<float, ParticleSystem> pair = particleThresholds[i];
+				ParticleSystem.EmissionModule emissionModule = pair.Value.emission;
 
 				if (activatedObject)
 				{
-					pair.Value?.SetActive(false);
+					emissionModule.enabled = false;
 					continue;
 				}
 
@@ -52,12 +53,13 @@ namespace StaminaSystem
 
 				if (currentStamina <= threshold)
 				{
-					pair.Value?.SetActive(true);
+					emissionModule.enabled = true;
+
 					activatedObject = true;
 				}
 				else
 				{
-					pair.Value?.SetActive(false);
+					emissionModule.enabled = false;
 				}
 			}
 		}
@@ -66,9 +68,10 @@ namespace StaminaSystem
 		{
 			if (canKill)
 			{
-				foreach (KeyValuePair<float, GameObject> pair in particleThresholds)
+				foreach (KeyValuePair<float, ParticleSystem> pair in particleThresholds)
 				{
-					pair.Value?.SetActive(false);
+					ParticleSystem.EmissionModule emissionModule = pair.Value.emission;
+					emissionModule.enabled = false;
 				}
 
 				EventManager.RaiseEvent(new PlayerFailedEvent(CauseOfFailure.StaminaDrained));
