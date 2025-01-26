@@ -5161,6 +5161,7 @@ GameObject:
   - component: {fileID: 6879351730723464718}
   - component: {fileID: 2101848774470993399}
   - component: {fileID: 3534398299652462281}
+  - component: {fileID: 5313648479802790992}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -5379,6 +5380,18 @@ MonoBehaviour:
     serializedDictionary:
     - key: 25
       value: {fileID: 1649765888330897532}
+--- !u!114 &5313648479802790992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690547332561543337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 589c78a30f2c40c88e25d13ba1cada9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4815884237948396164
 GameObject:
   m_ObjectHideFlags: 0
@@ -6130,6 +6143,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7263855654439503189}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8562909671659969049}
   m_SourcePrefab: {fileID: 100100000, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
 --- !u!4 &2717035380642602866 stripped
 Transform:
@@ -6238,3 +6254,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &8562909671659969049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3386436320131712456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea58715f912448fdb5846833b54d4aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerPerFailCondition:
+    serializedDictionary:
+    - key: 0
+      value: 
+    - key: 1
+      value: Fall
+    - key: 2
+      value: Fall
+    - key: 3
+      value: Fall
