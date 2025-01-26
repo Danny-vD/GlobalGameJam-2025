@@ -5361,7 +5361,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3efdd4c11a4bdc54a9087ab115c1de9e, type: 3}
   jumpClip: {fileID: 8300000, guid: 99ab8a4503de1f448ad764a5c4cdf9cc, type: 3}
   landClip: {fileID: 8300000, guid: c212aa2d646dfe248b7c96b4f0e4cb27, type: 3}
+<<<<<<< HEAD
   bubblePop: {fileID: 0}
+=======
+  bubblePop: {fileID: 8300000, guid: fab2252916ca4904b806db95fb01bc72, type: 3}
+>>>>>>> 8dfd2a022266122c9c2c8710e3bb7ea906c62291
 --- !u!114 &2101848774470993399
 MonoBehaviour:
   m_ObjectHideFlags: 0
