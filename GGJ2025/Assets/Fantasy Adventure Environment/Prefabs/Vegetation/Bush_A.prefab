@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000013528279170}
   - component: {fileID: 205000013782234198}
-  - component: {fileID: 4842592272507887084}
+  - component: {fileID: 6504093805282037152}
   m_Layer: 0
   m_Name: Bush_A
   m_TagString: Environment
@@ -235,8 +235,8 @@ LODGroup:
     renderers:
     - renderer: {fileID: 2349336}
   m_Enabled: 1
---- !u!65 &4842592272507887084
-BoxCollider:
+--- !u!136 &6504093805282037152
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -253,9 +253,11 @@ BoxCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1.4974992, z: 1}
-  m_Center: {x: 0, y: 0.65097237, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.53
+  m_Height: 1.6302414
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.7140357, z: 0}
 --- !u!1 &1000013080386542
 GameObject:
   m_ObjectHideFlags: 0

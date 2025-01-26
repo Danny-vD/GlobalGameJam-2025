@@ -76,7 +76,6 @@ namespace CMF
 			Falling,
 			Rising,
 			Jumping,
-			Dodging,
 		}
 
 		ControllerState currentControllerState = ControllerState.Falling;
@@ -446,8 +445,6 @@ namespace CMF
 				{
 					//Call events;
 					OnDodgeStart();
-
-					currentControllerState = ControllerState.Dodging;
 				}
 			}
 		}
