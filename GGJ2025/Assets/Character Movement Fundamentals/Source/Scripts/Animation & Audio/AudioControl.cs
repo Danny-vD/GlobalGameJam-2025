@@ -39,6 +39,7 @@ namespace CMF
 		public AudioClip[] footStepClips;
 		public AudioClip jumpClip;
 		public AudioClip landClip;
+		public AudioClip bubblePop;
 
 		//Setup;
 		void Start () {
@@ -122,6 +123,11 @@ namespace CMF
 			//Play jump audio clip;
 			audioSource.PlayOneShot(jumpClip, audioClipVolume);
 		}
-	}
+
+        void PlayBubblePop()
+        {
+            audioSource.PlayOneShot(bubblePop, audioClipVolume + audioClipVolume * Random.Range(-relativeRandomizedVolumeRange, relativeRandomizedVolumeRange));
+        }
+    }
 }
 
