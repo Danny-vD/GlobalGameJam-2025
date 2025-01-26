@@ -102,6 +102,8 @@ namespace CMF
 		{
 			SetMomentum(Vector3.zero);
 			mover.SetVelocity(Vector3.zero);
+
+			mover.enabled = false;
 		}
 
 		//This function is called right after Awake(); It can be overridden by inheriting scripts;
