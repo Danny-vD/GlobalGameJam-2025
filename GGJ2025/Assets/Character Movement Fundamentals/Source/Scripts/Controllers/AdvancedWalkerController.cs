@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using PlayerControls.Interfaces;
 using UnityEngine;
 
 namespace CMF
@@ -10,7 +11,7 @@ namespace CMF
 	public class AdvancedWalkerController : Controller
 	{
 		//References to attached components;
-		protected Transform tr;
+		protected Transform cachedTransform;
 		protected Mover mover;
 		protected CharacterInput characterInput;
 		protected CeilingDetector ceilingDetector;
@@ -20,6 +21,12 @@ namespace CMF
 		bool jumpKeyWasPressed = false;
 		bool jumpKeyWasLetGo = false;
 		bool jumpKeyIsPressed = false;
+		
+		//Dodge key variables;
+		bool dodgeInputIsLocked = false;
+		bool dodgeKeyWasPressed = false;
+		bool dodgeKeyWasLetGo = false;
+		bool dodgeKeyIsPressed = false;
 
 		//Movement speed;
 		public float movementSpeed = 7f;
@@ -68,7 +75,8 @@ namespace CMF
 			Sliding,
 			Falling,
 			Rising,
-			Jumping
+			Jumping,
+			Dodging,
 		}
 
 		ControllerState currentControllerState = ControllerState.Falling;
@@ -80,7 +88,7 @@ namespace CMF
 		void Awake()
 		{
 			mover           = GetComponent<Mover>();
-			tr              = transform;
+			cachedTransform              = transform;
 			characterInput  = GetComponent<CharacterInput>();
 			ceilingDetector = GetComponent<CeilingDetector>();
 
@@ -98,6 +106,7 @@ namespace CMF
 		void Update()
 		{
 			HandleJumpKeyInput();
+			HandleDodgeKeyInput();
 		}
 
 		//Handle jump booleans for later use in FixedUpdate;
@@ -115,6 +124,23 @@ namespace CMF
 			}
 
 			jumpKeyIsPressed = _newJumpKeyPressedState;
+		}
+		
+		//Handle dodge booleans for later use in FixedUpdate;
+		void HandleDodgeKeyInput()
+		{
+			bool _newDodgeKeyPressedState = IsDodgeKeyPressed();
+
+			if (dodgeKeyIsPressed == false && _newDodgeKeyPressedState == true)
+				dodgeKeyWasPressed = true;
+
+			if (dodgeKeyIsPressed == true && _newDodgeKeyPressedState == false)
+			{
+				dodgeKeyWasLetGo   = true;
+				dodgeInputIsLocked = false;
+			}
+
+			dodgeKeyIsPressed = _newDodgeKeyPressedState;
 		}
 
 		void FixedUpdate()
@@ -137,6 +163,9 @@ namespace CMF
 
 			//Check if the player has initiated a jump;
 			HandleJumping();
+			
+			//Check if the player has initiated a dodge;
+			HandleDodging();
 
 			//Calculate movement velocity;
 			Vector3 _velocity = Vector3.zero;
@@ -146,7 +175,7 @@ namespace CMF
 			//If local momentum is used, transform momentum into world space first;
 			Vector3 _worldMomentum = momentum;
 			if (useLocalMomentum)
-				_worldMomentum = tr.localToWorldMatrix * momentum;
+				_worldMomentum = cachedTransform.localToWorldMatrix * momentum;
 
 			//Add current momentum to velocity;
 			_velocity += _worldMomentum;
@@ -167,6 +196,10 @@ namespace CMF
 			//Reset jump key booleans;
 			jumpKeyWasLetGo   = false;
 			jumpKeyWasPressed = false;
+			
+			//Reset dodge key booleans;
+			dodgeKeyWasLetGo   = false;
+			dodgeKeyWasPressed = false;
 
 			//Reset ceiling detector, if one is attached to this gameobject;
 			if (ceilingDetector != null)
@@ -186,15 +219,15 @@ namespace CMF
 			//If no camera transform has been assigned, use the character's transform axes to calculate the movement direction;
 			if (cameraTransform == null)
 			{
-				_velocity += tr.right * characterInput.GetHorizontalMovementInput();
-				_velocity += tr.forward * characterInput.GetVerticalMovementInput();
+				_velocity += cachedTransform.right * characterInput.GetHorizontalMovementInput();
+				_velocity += cachedTransform.forward * characterInput.GetVerticalMovementInput();
 			}
 			else
 			{
 				//If a camera transform has been assigned, use the assigned transform's axes for movement direction;
 				//Project movement direction so movement stays parallel to the ground;
-				_velocity += Vector3.ProjectOnPlane(cameraTransform.right, tr.up).normalized * characterInput.GetHorizontalMovementInput();
-				_velocity += Vector3.ProjectOnPlane(cameraTransform.forward, tr.up).normalized * characterInput.GetVerticalMovementInput();
+				_velocity += Vector3.ProjectOnPlane(cameraTransform.right, cachedTransform.up).normalized * characterInput.GetHorizontalMovementInput();
+				_velocity += Vector3.ProjectOnPlane(cameraTransform.forward, cachedTransform.up).normalized * characterInput.GetVerticalMovementInput();
 			}
 
 			//If necessary, clamp movement vector to magnitude of 1f;
@@ -225,13 +258,23 @@ namespace CMF
 
 			return characterInput.IsJumpKeyPressed();
 		}
+		
+		//Returns 'true' if the player presses the dodge key;
+		protected virtual bool IsDodgeKeyPressed()
+		{
+			//If no character input script is attached to this object, return;
+			if (characterInput == null)
+				return false;
+
+			return characterInput.IsDodgeKeyPressed();
+		}
 
 		//Determine current controller state based on current momentum and whether the controller is grounded (or not);
 		//Handle state transitions;
 		ControllerState DetermineControllerState()
 		{
 			//Check if vertical momentum is pointing upwards;
-			bool _isRising = IsRisingOrFalling() && (VectorMath.GetDotProduct(GetMomentum(), tr.up) > 0f);
+			bool _isRising = IsRisingOrFalling() && (VectorMath.GetDotProduct(GetMomentum(), cachedTransform.up) > 0f);
 
 			//Check if controller is sliding;
 			bool _isSliding = mover.IsGrounded() && IsGroundTooSteep();
@@ -383,6 +426,21 @@ namespace CMF
 				}
 			}
 		}
+		
+		//Check if player has initiated a dodge;
+		void HandleDodging()
+		{
+			if (currentControllerState == ControllerState.Grounded)
+			{
+				if ((dodgeKeyIsPressed == true || dodgeKeyWasPressed) && !dodgeInputIsLocked)
+				{
+					//Call events;
+					OnDodgeStart();
+
+					currentControllerState = ControllerState.Dodging;
+				}
+			}
+		}
 
 		//Apply friction to both vertical and horizontal momentum based on 'friction' and 'gravity';
 		//Handle movement in the air;
@@ -391,7 +449,7 @@ namespace CMF
 		{
 			//If local momentum is used, transform momentum into world coordinates first;
 			if (useLocalMomentum)
-				momentum = tr.localToWorldMatrix * momentum;
+				momentum = cachedTransform.localToWorldMatrix * momentum;
 
 			Vector3 _verticalMomentum = Vector3.zero;
 			Vector3 _horizontalMomentum = Vector3.zero;
@@ -399,15 +457,15 @@ namespace CMF
 			//Split momentum into vertical and horizontal components;
 			if (momentum != Vector3.zero)
 			{
-				_verticalMomentum   = VectorMath.ExtractDotVector(momentum, tr.up);
+				_verticalMomentum   = VectorMath.ExtractDotVector(momentum, cachedTransform.up);
 				_horizontalMomentum = momentum - _verticalMomentum;
 			}
 
 			//Add gravity to vertical momentum;
-			_verticalMomentum -= tr.up * gravity * Time.deltaTime;
+			_verticalMomentum -= cachedTransform.up * gravity * Time.deltaTime;
 
 			//Remove any downward force if the controller is grounded;
-			if (currentControllerState == ControllerState.Grounded && VectorMath.GetDotProduct(_verticalMomentum, tr.up) < 0f)
+			if (currentControllerState == ControllerState.Grounded && VectorMath.GetDotProduct(_verticalMomentum, cachedTransform.up) < 0f)
 				_verticalMomentum = Vector3.zero;
 
 			//Manipulate momentum to steer controller in the air (if controller is not grounded or sliding);
@@ -440,7 +498,7 @@ namespace CMF
 			if (currentControllerState == ControllerState.Sliding)
 			{
 				//Calculate vector pointing away from slope;
-				Vector3 _pointDownVector = Vector3.ProjectOnPlane(mover.GetGroundNormal(), tr.up).normalized;
+				Vector3 _pointDownVector = Vector3.ProjectOnPlane(mover.GetGroundNormal(), cachedTransform.up).normalized;
 
 				//Calculate movement velocity;
 				Vector3 _slopeMovementVelocity = CalculateMovementVelocity();
@@ -468,23 +526,23 @@ namespace CMF
 				momentum = Vector3.ProjectOnPlane(momentum, mover.GetGroundNormal());
 
 				//Remove any upwards momentum when sliding;
-				if (VectorMath.GetDotProduct(momentum, tr.up) > 0f)
-					momentum = VectorMath.RemoveDotVector(momentum, tr.up);
+				if (VectorMath.GetDotProduct(momentum, cachedTransform.up) > 0f)
+					momentum = VectorMath.RemoveDotVector(momentum, cachedTransform.up);
 
 				//Apply additional slide gravity;
-				Vector3 _slideDirection = Vector3.ProjectOnPlane(-tr.up, mover.GetGroundNormal()).normalized;
+				Vector3 _slideDirection = Vector3.ProjectOnPlane(-cachedTransform.up, mover.GetGroundNormal()).normalized;
 				momentum += _slideDirection * slideGravity * Time.deltaTime;
 			}
 
 			//If controller is jumping, override vertical velocity with jumpSpeed;
 			if (currentControllerState == ControllerState.Jumping)
 			{
-				momentum =  VectorMath.RemoveDotVector(momentum, tr.up);
-				momentum += tr.up * jumpSpeed;
+				momentum =  VectorMath.RemoveDotVector(momentum, cachedTransform.up);
+				momentum += cachedTransform.up * jumpSpeed;
 			}
 
 			if (useLocalMomentum)
-				momentum = tr.worldToLocalMatrix * momentum;
+				momentum = cachedTransform.worldToLocalMatrix * momentum;
 		}
 
 		//Events;
@@ -494,10 +552,10 @@ namespace CMF
 		{
 			//If local momentum is used, transform momentum into world coordinates first;
 			if (useLocalMomentum)
-				momentum = tr.localToWorldMatrix * momentum;
+				momentum = cachedTransform.localToWorldMatrix * momentum;
 
 			//Add jump force to momentum;
-			momentum += tr.up * jumpSpeed;
+			momentum += cachedTransform.up * jumpSpeed;
 
 			//Set jump start time;
 			currentJumpStartTime = Time.time;
@@ -510,7 +568,15 @@ namespace CMF
 				OnJump(momentum);
 
 			if (useLocalMomentum)
-				momentum = tr.worldToLocalMatrix * momentum;
+				momentum = cachedTransform.worldToLocalMatrix * momentum;
+		}
+		
+		//This function is called when the player has initiated a dodge;
+		void OnDodgeStart()
+		{
+			//TODO: implement dodge
+
+			DodgeBegan();
 		}
 
 		//This function is called when the controller has lost ground contact, i.e. is either falling or rising, or generally in the air;
@@ -518,7 +584,7 @@ namespace CMF
 		{
 			//If local momentum is used, transform momentum into world coordinates first;
 			if (useLocalMomentum)
-				momentum = tr.localToWorldMatrix * momentum;
+				momentum = cachedTransform.localToWorldMatrix * momentum;
 
 			//Get current movement velocity;
 			Vector3 _velocity = GetMovementVelocity();
@@ -544,7 +610,7 @@ namespace CMF
 			momentum += _velocity;
 
 			if (useLocalMomentum)
-				momentum = tr.worldToLocalMatrix * momentum;
+				momentum = cachedTransform.worldToLocalMatrix * momentum;
 		}
 
 		//This function is called when the controller has landed on a surface after being in the air;
@@ -557,7 +623,7 @@ namespace CMF
 
 				//If local momentum is used, transform momentum into world coordinates first;
 				if (useLocalMomentum)
-					_collisionVelocity = tr.localToWorldMatrix * _collisionVelocity;
+					_collisionVelocity = cachedTransform.localToWorldMatrix * _collisionVelocity;
 
 				OnLand(_collisionVelocity);
 			}
@@ -568,13 +634,13 @@ namespace CMF
 		{
 			//If local momentum is used, transform momentum into world coordinates first;
 			if (useLocalMomentum)
-				momentum = tr.localToWorldMatrix * momentum;
+				momentum = cachedTransform.localToWorldMatrix * momentum;
 
 			//Remove all vertical parts of momentum;
-			momentum = VectorMath.RemoveDotVector(momentum, tr.up);
+			momentum = VectorMath.RemoveDotVector(momentum, cachedTransform.up);
 
 			if (useLocalMomentum)
-				momentum = tr.worldToLocalMatrix * momentum;
+				momentum = cachedTransform.worldToLocalMatrix * momentum;
 		}
 
 		//Helper functions;
@@ -583,7 +649,7 @@ namespace CMF
 		private bool IsRisingOrFalling()
 		{
 			//Calculate current vertical momentum;
-			Vector3 _verticalMomentum = VectorMath.ExtractDotVector(GetMomentum(), tr.up);
+			Vector3 _verticalMomentum = VectorMath.ExtractDotVector(GetMomentum(), cachedTransform.up);
 
 			//Setup threshold to check against;
 			//For most applications, a value of '0.001f' is recommended;
@@ -599,7 +665,7 @@ namespace CMF
 			if (!mover.IsGrounded())
 				return true;
 
-			return (Vector3.Angle(mover.GetGroundNormal(), tr.up) > slopeLimit);
+			return (Vector3.Angle(mover.GetGroundNormal(), cachedTransform.up) > slopeLimit);
 		}
 
 		//Getters;
@@ -621,7 +687,7 @@ namespace CMF
 		{
 			Vector3 _worldMomentum = momentum;
 			if (useLocalMomentum)
-				_worldMomentum = tr.localToWorldMatrix * momentum;
+				_worldMomentum = cachedTransform.localToWorldMatrix * momentum;
 
 			return _worldMomentum;
 		}
@@ -642,19 +708,19 @@ namespace CMF
 		public void AddMomentum(Vector3 _momentum)
 		{
 			if (useLocalMomentum)
-				momentum = tr.localToWorldMatrix * momentum;
+				momentum = cachedTransform.localToWorldMatrix * momentum;
 
 			momentum += _momentum;
 
 			if (useLocalMomentum)
-				momentum = tr.worldToLocalMatrix * momentum;
+				momentum = cachedTransform.worldToLocalMatrix * momentum;
 		}
 
 		//Set controller momentum directly;
 		public void SetMomentum(Vector3 _newMomentum)
 		{
 			if (useLocalMomentum)
-				momentum = tr.worldToLocalMatrix * _newMomentum;
+				momentum = cachedTransform.worldToLocalMatrix * _newMomentum;
 			else
 				momentum = _newMomentum;
 		}

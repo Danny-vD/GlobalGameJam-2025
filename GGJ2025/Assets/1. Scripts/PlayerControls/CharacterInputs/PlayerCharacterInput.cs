@@ -4,7 +4,7 @@ using PlayerControls.Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace PlayerControls
+namespace PlayerControls.CharacterInputs
 {
 	public class PlayerCharacterInput : CharacterInput, IMovementSpeedInputHandler
 	{

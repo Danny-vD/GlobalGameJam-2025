@@ -44,15 +44,15 @@ namespace PlayerControls.CharacterControllers
 			//If no camera transform has been assigned, use the character's transform axes to calculate the movement direction;
 			if (cameraTransform == null)
 			{
-				movementDirection += tr.forward * inputDirection.y;
-				movementDirection += tr.right * inputDirection.x;
+				movementDirection += cachedTransform.forward * inputDirection.y;
+				movementDirection += cachedTransform.right * inputDirection.x;
 			}
 			else
 			{
 				//If a camera transform has been assigned, use the assigned transform's axes for movement direction;
 				//Project movement direction so movement stays parallel to the ground;
-				movementDirection += Vector3.ProjectOnPlane(cameraTransform.forward, tr.up).normalized * inputDirection.y;
-				movementDirection += Vector3.ProjectOnPlane(cameraTransform.right, tr.up).normalized * inputDirection.x;
+				movementDirection += Vector3.ProjectOnPlane(cameraTransform.forward, cachedTransform.up).normalized * inputDirection.y;
+				movementDirection += Vector3.ProjectOnPlane(cameraTransform.right, cachedTransform.up).normalized * inputDirection.x;
 			}
 
 			if (movementDirection.sqrMagnitude > 1)

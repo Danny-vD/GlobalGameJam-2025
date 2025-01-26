@@ -5,12 +5,12 @@ using UnityEngine;
 namespace CMF
 {
 	//This script controls the character's animation by passing velocity values and other information ('isGrounded') to an animator component;
-	public class AnimationControl : MonoBehaviour {
-
+	public class AnimationControl : MonoBehaviour
+	{
 		Controller controller;
 		Animator animator;
 		Transform animatorTransform;
-		Transform tr;
+		Transform cachedTransform;
 
 		//Whether the character is using the strafing blend tree;
 		public bool useStrafeAnimations = false;
@@ -23,12 +23,13 @@ namespace CMF
 		Vector3 oldMovementVelocity = Vector3.zero;
 
 		//Setup;
-		void Awake () {
-			controller = GetComponent<Controller>();
-			animator = GetComponentInChildren<Animator>();
+		void Awake()
+		{
+			controller        = GetComponent<Controller>();
+			animator          = GetComponentInChildren<Animator>();
 			animatorTransform = animator.transform;
 
-			tr = transform;
+			cachedTransform = transform;
 		}
 
 		//OnEnable;
@@ -37,6 +38,9 @@ namespace CMF
 			//Connect events to controller events;
 			controller.OnLand += OnLand;
 			controller.OnJump += OnJump;
+
+			controller.OnDodge    += OnDodge;
+			controller.OnDodgeEnd += OnDodgeEnd;
 		}
 
 		//OnDisable;
@@ -45,27 +49,30 @@ namespace CMF
 			//Disconnect events to prevent calls to disabled gameobjects;
 			controller.OnLand -= OnLand;
 			controller.OnJump -= OnJump;
+			
+			controller.OnDodge    -= OnDodge;
+			controller.OnDodgeEnd -= OnDodgeEnd;
 		}
-		
-		//Update;
-		void Update () {
 
+		//Update;
+		void Update()
+		{
 			//Get controller velocity;
 			Vector3 _velocity = controller.GetVelocity();
 
 			//Split up velocity;
-			Vector3 _horizontalVelocity = VectorMath.RemoveDotVector(_velocity, tr.up);
+			Vector3 _horizontalVelocity = VectorMath.RemoveDotVector(_velocity, cachedTransform.up);
 			Vector3 _verticalVelocity = _velocity - _horizontalVelocity;
 
 			//Smooth horizontal velocity for fluid animation;
 			_horizontalVelocity = Vector3.Lerp(oldMovementVelocity, _horizontalVelocity, smoothingFactor * Time.deltaTime);
 			oldMovementVelocity = _horizontalVelocity;
 
-			animator.SetFloat("VerticalSpeed", _verticalVelocity.magnitude * VectorMath.GetDotProduct(_verticalVelocity.normalized, tr.up));
+			animator.SetFloat("VerticalSpeed", _verticalVelocity.magnitude * VectorMath.GetDotProduct(_verticalVelocity.normalized, cachedTransform.up));
 			animator.SetFloat("HorizontalSpeed", _horizontalVelocity.magnitude);
 
 			//If animator is strafing, split up horizontal velocity;
-			if(useStrafeAnimations)
+			if (useStrafeAnimations)
 			{
 				Vector3 _localVelocity = animatorTransform.InverseTransformVector(_horizontalVelocity);
 				animator.SetFloat("ForwardSpeed", _localVelocity.z);
@@ -80,7 +87,7 @@ namespace CMF
 		void OnLand(Vector3 _v)
 		{
 			//Only trigger animation if downward velocity exceeds threshold;
-			if(VectorMath.GetDotProduct(_v, tr.up) > -landVelocityThreshold)
+			if (VectorMath.GetDotProduct(_v, cachedTransform.up) > -landVelocityThreshold)
 				return;
 
 			animator.SetTrigger("OnLand");
@@ -88,7 +95,14 @@ namespace CMF
 
 		void OnJump(Vector3 _v)
 		{
-			
+		}
+
+		private void OnDodge()
+		{
+		}
+
+		private void OnDodgeEnd()
+		{
 		}
 	}
 }
