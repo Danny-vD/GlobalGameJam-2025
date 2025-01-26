@@ -17,4 +17,14 @@ public class BubbleController : MonoBehaviour
 
         EventManager.RaiseEvent(new GameplayEvents.PlayerFailedEvent(GameplayEvents.Enums.CauseOfFailure.BubblePopped));
     }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        EventManager.RaiseEvent(new GameplayEvents.PlayerFailedEvent(GameplayEvents.Enums.CauseOfFailure.BubblePopped));
+    }
+
+    private void OnParticleTrigger()
+    {
+        Debug.Log("AHHHHH");
+    }
 }
