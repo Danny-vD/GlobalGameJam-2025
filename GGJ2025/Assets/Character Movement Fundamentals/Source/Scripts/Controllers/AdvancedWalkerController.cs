@@ -584,9 +584,13 @@ namespace CMF
 		//This function is called when the player has initiated a dodge;
 		void OnDodgeStart()
 		{
-			//TODO: implement dodge
-
 			DodgeBegan();
+		}
+
+		public override void DodgeEnded()
+		{
+			currentControllerState = ControllerState.Grounded;
+			base.DodgeEnded();
 		}
 
 		//This function is called when the controller has lost ground contact, i.e. is either falling or rising, or generally in the air;

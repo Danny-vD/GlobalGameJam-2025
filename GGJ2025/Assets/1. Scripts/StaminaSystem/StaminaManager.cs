@@ -105,6 +105,8 @@ namespace StaminaSystem
 			{
 				RegenerateStamina(regenerationRate * Time.fixedDeltaTime);
 			}
+
+			Debug.Log($"{GetStamina()} | {GetStaminaNormalized()}%");
 		}
 
 		public float GetStamina()

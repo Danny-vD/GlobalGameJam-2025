@@ -30,7 +30,7 @@ namespace CMF
 			OnDodge?.Invoke();
 		}
 
-		protected virtual void DodgeEnded()
+		public virtual void DodgeEnded()
 		{
 			OnDodgeEnd?.Invoke();
 		}

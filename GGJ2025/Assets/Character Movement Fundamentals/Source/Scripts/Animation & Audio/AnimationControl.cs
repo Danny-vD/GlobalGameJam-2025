@@ -99,6 +99,7 @@ namespace CMF
 
 		private void OnDodge()
 		{
+			animator.SetTrigger("Dodge");
 		}
 
 		private void OnDodgeEnd()
