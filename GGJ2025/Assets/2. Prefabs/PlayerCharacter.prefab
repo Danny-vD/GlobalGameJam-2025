@@ -5289,6 +5289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e8a240527748f699456ff59e7bdf27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poseTransform: {fileID: 2717035380642602866}
   movementSpeed: 7
   airControlRate: 3
   jumpSpeed: 5
