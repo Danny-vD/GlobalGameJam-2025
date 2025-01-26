@@ -675,6 +675,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1038477395 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2717035380642602866, guid: f934208e61a2b304c807c68f4e1a67df, type: 3}
+  m_PrefabInstance: {fileID: 847510639730655900}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1064479610
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,6 +950,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1574753315526689044, guid: f934208e61a2b304c807c68f4e1a67df, type: 3}
+      propertyPath: poseTransform
+      value: 
+      objectReference: {fileID: 1038477395}
     - target: {fileID: 1986456492811991083, guid: f934208e61a2b304c807c68f4e1a67df, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.138319
