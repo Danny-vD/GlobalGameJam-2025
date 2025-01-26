@@ -10,6 +10,9 @@ namespace CMF
 	//Custom movement input can be implemented by creating a new script that inherits 'AdvancedWalkerController' and overriding the 'CalculateMovementDirection' function;
 	public class AdvancedWalkerController : Controller
 	{
+		[SerializeField]
+		protected Transform poseTransform;
+		
 		//References to attached components;
 		protected Transform cachedTransform;
 		protected Mover mover;
