@@ -15,6 +15,8 @@ namespace CMF
 		public abstract Vector3 GetMovementVelocity();
 
 		public abstract bool IsGrounded();
+		
+		public bool IsDodging { get; protected set; }
 
 		//Events;
 		public delegate void VectorEvent(Vector3 v);
@@ -27,11 +29,15 @@ namespace CMF
 
 		protected virtual void DodgeBegan()
 		{
+			IsDodging = true;
+			
 			OnDodge?.Invoke();
 		}
 
 		public virtual void DodgeEnded()
 		{
+			IsDodging = false;
+			
 			OnDodgeEnd?.Invoke();
 		}
 	}
