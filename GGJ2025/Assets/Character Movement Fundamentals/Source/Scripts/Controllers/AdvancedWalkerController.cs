@@ -98,6 +98,11 @@ namespace CMF
 			Setup();
 		}
 
+		private void OnDisable()
+		{
+			mover.SetVelocity(Vector3.zero);
+		}
+
 		//This function is called right after Awake(); It can be overridden by inheriting scripts;
 		protected virtual void Setup()
 		{
