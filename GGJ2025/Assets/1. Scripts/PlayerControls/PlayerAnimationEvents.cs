@@ -33,5 +33,10 @@ namespace PlayerControls
 		{
 			audioControl.PlayHaaw();
 		}
+
+		public void PlayJumpSound()
+		{
+			audioControl.PlayJump();
+		}
 	}
 }
