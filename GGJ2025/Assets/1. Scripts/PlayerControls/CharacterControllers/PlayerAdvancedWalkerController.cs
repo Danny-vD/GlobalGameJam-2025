@@ -75,6 +75,11 @@ namespace PlayerControls.CharacterControllers
 			if (IsDodging)
 			{
 				speed = dodgeSpeed;
+
+				if (movementDirection == Vector3.zero)
+				{
+					movementDirection = poseTransform.forward;
+				}
 			}
 			else
 			{
