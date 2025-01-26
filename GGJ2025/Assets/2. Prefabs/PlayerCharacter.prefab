@@ -5356,7 +5356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 7
   airControlRate: 3
-  jumpSpeed: 8
+  jumpSpeed: 5
   jumpDuration: 0.2
   airFriction: 0.5
   groundFriction: 100
@@ -5368,6 +5368,7 @@ MonoBehaviour:
   walkSpeed: 2
   jogSpeed: 3
   runSpeed: 6
+  dodgeSpeed: 7
 --- !u!114 &1294595161997774470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5436,10 +5437,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd45b86caa74d99b3a30a6649aef08a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumStamina: 100
+  maximumStamina: 80
   staminaRegenerateCooldown: 2
   regenerationRate: 25
-  runCost: 25
+  runCost: 20
   jumpCost: 25
   dodgeCost: 25
 --- !u!114 &3534398299652462281
@@ -5456,9 +5457,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleThresholds:
     serializedDictionary:
-    - key: 25
+    - key: 40
       value: {fileID: 7082297926970495677}
-    - key: 1
+    - key: 20
       value: {fileID: 5427140679989777784}
 --- !u!114 &6353338917740492152
 MonoBehaviour:
