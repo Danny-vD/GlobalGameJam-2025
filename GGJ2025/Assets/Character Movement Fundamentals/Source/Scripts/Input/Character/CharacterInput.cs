@@ -12,6 +12,10 @@ namespace CMF
         public abstract float GetHorizontalMovementInput();
         public abstract float GetVerticalMovementInput();
 
+        public abstract Vector2 GetInputMovementDirection(out bool isMoving);
+
         public abstract bool IsJumpKeyPressed();
+
+        public abstract bool IsDodgeKeyPressed();
     }
 }

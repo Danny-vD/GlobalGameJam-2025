@@ -6,30 +6,31 @@ namespace CMF
 {
 	//This character movement input class is an example of how to get input from a gamepad/joystick to control the character;
 	//It comes with a dead zone threshold setting to bypass any unwanted joystick "jitter";
-	public class CharacterJoystickInput : CharacterInput {
-
+	public class CharacterJoystickInput : CharacterInput
+	{
 		public string horizontalInputAxis = "Horizontal";
 		public string verticalInputAxis = "Vertical";
 		public KeyCode jumpKey = KeyCode.Joystick1Button0;
+		public KeyCode dodgeKey = KeyCode.Joystick1Button6;
 
 		//If this is enabled, Unity's internal input smoothing is bypassed;
 		public bool useRawInput = true;
 
 		//If any input falls below this value, it is set to '0';
-        //Use this to prevent any unwanted small movements of the joysticks ("jitter");
+		//Use this to prevent any unwanted small movements of the joysticks ("jitter");
 		public float deadZoneThreshold = 0.2f;
 
-        public override float GetHorizontalMovementInput()
+		public override float GetHorizontalMovementInput()
 		{
 			float _horizontalInput;
 
-			if(useRawInput)
+			if (useRawInput)
 				_horizontalInput = Input.GetAxisRaw(horizontalInputAxis);
 			else
 				_horizontalInput = Input.GetAxis(horizontalInputAxis);
 
 			//Set any input values below threshold to '0';
-			if(Mathf.Abs(_horizontalInput) < deadZoneThreshold)
+			if (Mathf.Abs(_horizontalInput) < deadZoneThreshold)
 				_horizontalInput = 0f;
 
 			return _horizontalInput;
@@ -39,16 +40,48 @@ namespace CMF
 		{
 			float _verticalInput;
 
-			if(useRawInput)
+			if (useRawInput)
 				_verticalInput = Input.GetAxisRaw(verticalInputAxis);
 			else
 				_verticalInput = Input.GetAxis(verticalInputAxis);
 
 			//Set any input values below threshold to '0';
-			if(Mathf.Abs(_verticalInput) < deadZoneThreshold)
+			if (Mathf.Abs(_verticalInput) < deadZoneThreshold)
 				_verticalInput = 0f;
 
 			return _verticalInput;
+		}
+
+		public override Vector2 GetInputMovementDirection(out bool isMoving)
+		{
+			float horizontalInput;
+			float verticalInput;
+
+			if (useRawInput)
+			{
+				horizontalInput = Input.GetAxisRaw(horizontalInputAxis);
+				verticalInput   = Input.GetAxisRaw(verticalInputAxis);
+			}
+			else
+			{
+				horizontalInput = Input.GetAxis(horizontalInputAxis);
+				verticalInput   = Input.GetAxis(verticalInputAxis);
+			}
+
+			//Set any input values below threshold to '0';
+			if (Mathf.Abs(horizontalInput) < deadZoneThreshold)
+			{
+				horizontalInput = 0f;
+			}
+
+			if (Mathf.Abs(verticalInput) < deadZoneThreshold)
+			{
+				verticalInput = 0f;
+			}
+
+			isMoving = horizontalInput > 0 || verticalInput > 0;
+			
+			return new Vector2(horizontalInput, verticalInput);
 		}
 
 		public override bool IsJumpKeyPressed()
@@ -56,5 +89,9 @@ namespace CMF
 			return Input.GetKey(jumpKey);
 		}
 
+		public override bool IsDodgeKeyPressed()
+		{
+			return Input.GetKey(dodgeKey);
+		}
 	}
 }
