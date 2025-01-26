@@ -5354,10 +5354,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e8a240527748f699456ff59e7bdf27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poseTransform: {fileID: 2717035380642602866}
   movementSpeed: 7
   airControlRate: 3
-  jumpSpeed: 8
+  jumpSpeed: 5
   jumpDuration: 0.2
   airFriction: 0.5
   groundFriction: 100
@@ -5369,7 +5368,7 @@ MonoBehaviour:
   walkSpeed: 2
   jogSpeed: 3
   runSpeed: 6
-  dodgeSpeed: 10
+  dodgeSpeed: 7
 --- !u!114 &1294595161997774470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5438,10 +5437,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd45b86caa74d99b3a30a6649aef08a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumStamina: 100
+  maximumStamina: 80
   staminaRegenerateCooldown: 2
   regenerationRate: 25
-  runCost: 25
+  runCost: 20
   jumpCost: 25
   dodgeCost: 25
 --- !u!114 &3534398299652462281
@@ -5458,9 +5457,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleThresholds:
     serializedDictionary:
-    - key: 25
+    - key: 40
       value: {fileID: 7082297926970495677}
-    - key: 1
+    - key: 20
       value: {fileID: 5427140679989777784}
 --- !u!114 &6353338917740492152
 MonoBehaviour:
@@ -11131,9 +11130,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8316181087920114650}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1216018976550819334}
     - targetCorrespondingSourceObject: {fileID: 5637706364324373411, guid: f98afa78cb8078848b1ebb4aa5827431, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7102210690551352626}
@@ -11289,18 +11285,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popParticleSystem: {fileID: 5101698365853904628}
 --- !u!114 &8316181087920114650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3386436320131712456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d58aca88cebe43edadeecbab131375a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1216018976550819334
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
