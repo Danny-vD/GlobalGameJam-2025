@@ -5362,6 +5362,7 @@ MonoBehaviour:
   jumpClip: {fileID: 8300000, guid: 99ab8a4503de1f448ad764a5c4cdf9cc, type: 3}
   landClip: {fileID: 8300000, guid: c212aa2d646dfe248b7c96b4f0e4cb27, type: 3}
   bubblePop: {fileID: 8300000, guid: fab2252916ca4904b806db95fb01bc72, type: 3}
+  hawSound: {fileID: 8300000, guid: dc3daa6dbdfe01e49ae26b79938b0bb3, type: 3}
 --- !u!114 &2101848774470993399
 MonoBehaviour:
   m_ObjectHideFlags: 0

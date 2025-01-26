@@ -13361,6 +13361,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 6879351730723464718, guid: f934208e61a2b304c807c68f4e1a67df, type: 3}
+      propertyPath: hawSound
+      value: 
+      objectReference: {fileID: 8300000, guid: dc3daa6dbdfe01e49ae26b79938b0bb3, type: 3}
     - target: {fileID: 7102210690551352626, guid: f934208e61a2b304c807c68f4e1a67df, type: 3}
       propertyPath: canvasAnimator
       value: 

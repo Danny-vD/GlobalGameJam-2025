@@ -28,5 +28,10 @@ namespace PlayerControls
 		{
 			audioControl.PlayFootstepSound(0);
 		}
+
+		public void PlayhaawSound()
+		{
+			audioControl.PlayHaaw();
+		}
 	}
 }

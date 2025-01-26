@@ -40,6 +40,7 @@ namespace CMF
 		public AudioClip jumpClip;
 		public AudioClip landClip;
 		public AudioClip bubblePop;
+		public AudioClip hawSound;
 
 		//Setup;
 		void Start () {
@@ -127,6 +128,11 @@ namespace CMF
         public void PlayBubblePop()
         {
             audioSource.PlayOneShot(bubblePop, audioClipVolume + audioClipVolume * Random.Range(-relativeRandomizedVolumeRange, relativeRandomizedVolumeRange));
+        }
+
+		 public void PlayHaaw()
+        {
+            audioSource.PlayOneShot(hawSound, audioClipVolume + audioClipVolume * Random.Range(-relativeRandomizedVolumeRange, relativeRandomizedVolumeRange));
         }
     }
 }

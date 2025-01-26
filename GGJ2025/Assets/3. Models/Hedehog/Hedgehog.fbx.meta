@@ -258,14 +258,21 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: BubblePopParticles
+        functionName: PlayBubblePop
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0
-        functionName: PlayBubblePop
+        functionName: BubblePopParticles
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.42437592
+        functionName: PlayhaawSound
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
