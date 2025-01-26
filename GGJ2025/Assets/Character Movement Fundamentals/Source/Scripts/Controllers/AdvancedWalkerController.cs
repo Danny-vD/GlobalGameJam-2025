@@ -21,7 +21,7 @@ namespace CMF
 		bool jumpKeyWasPressed = false;
 		bool jumpKeyWasLetGo = false;
 		bool jumpKeyIsPressed = false;
-		
+
 		//Dodge key variables;
 		bool dodgeInputIsLocked = false;
 		bool dodgeKeyWasPressed = false;
@@ -87,7 +87,7 @@ namespace CMF
 		void Awake()
 		{
 			mover           = GetComponent<Mover>();
-			cachedTransform              = transform;
+			cachedTransform = transform;
 			characterInput  = GetComponent<CharacterInput>();
 			ceilingDetector = GetComponent<CeilingDetector>();
 
@@ -134,7 +134,7 @@ namespace CMF
 
 			jumpKeyIsPressed = _newJumpKeyPressedState;
 		}
-		
+
 		//Handle dodge booleans for later use in FixedUpdate;
 		void HandleDodgeKeyInput()
 		{
@@ -172,7 +172,7 @@ namespace CMF
 
 			//Check if the player has initiated a jump;
 			HandleJumping();
-			
+
 			//Check if the player has initiated a dodge;
 			HandleDodging();
 
@@ -205,7 +205,7 @@ namespace CMF
 			//Reset jump key booleans;
 			jumpKeyWasLetGo   = false;
 			jumpKeyWasPressed = false;
-			
+
 			//Reset dodge key booleans;
 			dodgeKeyWasLetGo   = false;
 			dodgeKeyWasPressed = false;
@@ -267,7 +267,7 @@ namespace CMF
 
 			return characterInput.IsJumpKeyPressed();
 		}
-		
+
 		//Returns 'true' if the player presses the dodge key;
 		protected virtual bool IsDodgeKeyPressed()
 		{
@@ -423,7 +423,7 @@ namespace CMF
 		//Check if player has initiated a jump;
 		void HandleJumping()
 		{
-			if (currentControllerState == ControllerState.Grounded)
+			if (currentControllerState == ControllerState.Grounded && !IsDodging)
 			{
 				if ((jumpKeyIsPressed == true || jumpKeyWasPressed) && !jumpInputIsLocked)
 				{
@@ -435,16 +435,16 @@ namespace CMF
 				}
 			}
 		}
-		
+
 		//Check if player has initiated a dodge;
 		void HandleDodging()
 		{
-			if (currentControllerState == ControllerState.Grounded)
+			if (currentControllerState == ControllerState.Grounded && !IsDodging)
 			{
 				if ((dodgeKeyIsPressed == true || dodgeKeyWasPressed) && !dodgeInputIsLocked)
 				{
 					//Call events;
-					OnDodgeStart();
+					DodgeBegan();
 				}
 			}
 		}
@@ -577,19 +577,17 @@ namespace CMF
 			if (useLocalMomentum)
 				momentum = cachedTransform.worldToLocalMatrix * momentum;
 		}
-		
+
 		//This function is called when the player has initiated a dodge;
-		void OnDodgeStart()
+		protected override void DodgeBegan()
 		{
 			dodgeInputIsLocked = true;
-			
-			DodgeBegan();
+
+			base.DodgeBegan();
 		}
 
 		public override void DodgeEnded()
 		{
-			dodgeInputIsLocked = false;
-			
 			currentControllerState = ControllerState.Grounded;
 			base.DodgeEnded();
 		}

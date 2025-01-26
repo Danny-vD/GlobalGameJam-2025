@@ -18,6 +18,9 @@ namespace PlayerControls.CharacterControllers
 		[SerializeField]
 		private float runSpeed = 8f;
 
+		[SerializeField]
+		private float dodgeSpeed = 10f;
+
 		private IMovementSpeedInputHandler movementSpeedInputHandler;
 
 		protected override void Setup()
@@ -31,7 +34,7 @@ namespace PlayerControls.CharacterControllers
 			{
 				return Vector3.zero;
 			}
-			
+
 			Vector2 inputDirection = characterInput.GetInputMovementDirection(out bool isMoving);
 
 			if (!isMoving)
@@ -68,20 +71,27 @@ namespace PlayerControls.CharacterControllers
 			Vector3 movementDirection = CalculateMovementDirection();
 
 			float speed = 0;
-			
-			if (ReferenceEquals(movementSpeedInputHandler, null))
+
+			if (IsDodging)
 			{
-				speed = movementSpeed;
+				speed = dodgeSpeed;
 			}
 			else
 			{
-				speed = movementSpeedInputHandler.GetCurrentMovementType() switch
+				if (ReferenceEquals(movementSpeedInputHandler, null))
 				{
-					MovementType.Walk => walkSpeed,
-					MovementType.Jog => jogSpeed,
-					MovementType.Run => runSpeed,
-					_ => 0,
-				};
+					speed = movementSpeed;
+				}
+				else
+				{
+					speed = movementSpeedInputHandler.GetCurrentMovementType() switch
+					{
+						MovementType.Walk => walkSpeed,
+						MovementType.Jog => jogSpeed,
+						MovementType.Run => runSpeed,
+						_ => 0,
+					};
+				}
 			}
 
 			Vector3 velocity = movementDirection * speed;
