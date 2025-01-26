@@ -46,7 +46,7 @@ public class Checkpoint : MonoBehaviour
 
     private void ActivateCheckpoint()
     {
-        EventManager.RaiseEvent(new GameplayEvents.CheckpointActivateEvent(this));
+        EventManager.RaiseEvent(new GameplayEvents.CheckpointActivateEvent(this.respawnPoint));
     }
 
     private void OnDrawGizmos()

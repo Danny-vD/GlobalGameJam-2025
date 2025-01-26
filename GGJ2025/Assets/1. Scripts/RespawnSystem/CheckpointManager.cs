@@ -4,7 +4,8 @@ using VDFramework.EventSystem;
 
 public class CheckpointManager : MonoBehaviour
 {
-    private Checkpoint activeCheckpoint;
+    public static CheckpointManager Instance { get; private set; }
+    private Vector3 activeCheckpoint;
     [SerializeField]
     private GameObject player;
     [SerializeField]
@@ -12,51 +13,33 @@ public class CheckpointManager : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.AddListener((GameplayEvents.CheckpointActivateEvent checkpointActivate) => SetActiveCheckpoint(checkpointActivate.checkpoint));
-        EventManager.AddListener((GameplayEvents.PlayerFailedEvent playerFailed) => RespawnPlayer());
-        player = GameObject.FindGameObjectWithTag("Player");
-        if (player == null)
+        if (Instance == null)
         {
-            Debug.LogWarning("No player found in scene!");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            EventManager.AddListener((GameplayEvents.CheckpointActivateEvent checkpointActivate) => SetActiveCheckpoint(checkpointActivate.checkpoint));
+            EventManager.AddListener((GameplayEvents.PlayerFailedEvent playerFailed) => RespawnPlayer());
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-    public void SetActiveCheckpoint(Checkpoint checkpoint)
+    public void SetActiveCheckpoint(GameObject checkpoint)
     {
-        Debug.Log($"Checkpoint {checkpoint.name} activated!");
-        activeCheckpoint = checkpoint;
-    }
-
-    public Checkpoint GetActiveCheckpoint()
-    {
-        return activeCheckpoint;
-    }
-
-    public Vector3 GetRespawnPosition()
-    {
-        return activeCheckpoint != null ? activeCheckpoint.GetRespawnPosition() : Vector3.zero;
+        Debug.Log($"Checkpoint {checkpoint.transform.parent.name} activated!");
+        activeCheckpoint = checkpoint.transform.position;
     }
 
     public void RespawnPlayer()
     {
+        Debug.Log("YOU DIED");
         if (activeCheckpoint == null)
         {
             Debug.LogWarning("No active checkpoint found!");
             return;
         }
-        Debug.Log("YOU DIED");
-        StartCoroutine(RespawnSequence());
-    }
-
-    private IEnumerator RespawnSequence()
-    {
-        // TODO: Disable player control via event?
-
-        yield return new WaitForSeconds(respawnDelay);
-
-        // Move player
-        player.transform.position = activeCheckpoint.GetRespawnPosition();
-        
-        //TODO: Re-enable controls via event?
+        Debug.Log($"Respawn at checkpoint {activeCheckpoint}");
     }
 }
