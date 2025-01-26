@@ -34,7 +34,7 @@ namespace PlayerControls.CharacterInputs
 		private bool shouldRun;
 		private bool shouldWalk;
 
-		private void OnEnable() //
+		private void OnEnable()
 		{
 			runInput.action.performed += StartRunning;
 			runInput.action.canceled  += StopRunning;

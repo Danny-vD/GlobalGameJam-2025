@@ -5160,6 +5160,7 @@ GameObject:
   - component: {fileID: 2564462801932920223}
   - component: {fileID: 6879351730723464718}
   - component: {fileID: 2101848774470993399}
+  - component: {fileID: 3534398299652462281}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -5362,6 +5363,22 @@ MonoBehaviour:
   runCost: 25
   jumpCost: 25
   dodgeCost: 25
+--- !u!114 &3534398299652462281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690547332561543337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771e3175d0a64af4bcf7fbdc93a28e61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleThresholds:
+    serializedDictionary:
+    - key: 25
+      value: {fileID: 1649765888330897532}
 --- !u!1 &4815884237948396164
 GameObject:
   m_ObjectHideFlags: 0
