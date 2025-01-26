@@ -9,9 +9,6 @@ public class CheckpointManager : MonoBehaviour
     public Vector3 activeCheckpoint;
     public bool hasCheckpoint = false;
 
-    [SerializeField]
-    private float respawnDelay = 1f;
-
     private void Awake()
     {
         if (Instance == null)
