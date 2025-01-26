@@ -97,7 +97,7 @@ namespace StaminaSystem
 		{
 			_ = characterInput.GetInputMovementDirection(out bool isMoving);
 
-			if (isMoving && movementSpeedInputHandler.GetCurrentMovementType() == MovementType.Run && controller.IsGrounded())
+			if (isMoving && movementSpeedInputHandler.GetCurrentMovementType() == MovementType.Run && controller.IsGrounded() && !isDodging)
 			{
 				DrainStamina(runCost * Time.fixedDeltaTime, true);
 			}
