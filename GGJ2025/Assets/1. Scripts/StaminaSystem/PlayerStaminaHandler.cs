@@ -71,7 +71,7 @@ namespace StaminaSystem
 				foreach (KeyValuePair<float, ParticleSystem> pair in particleThresholds)
 				{
 					ParticleSystem.EmissionModule emissionModule = pair.Value.emission;
-					emissionModule.enabled = true;
+					emissionModule.enabled = false;
 				}
 
 				EventManager.RaiseEvent(new PlayerFailedEvent(CauseOfFailure.StaminaDrained));
