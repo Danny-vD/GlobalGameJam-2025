@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using VDFramework.EventSystem;
 
 public class Checkpoint : MonoBehaviour
@@ -6,7 +7,10 @@ public class Checkpoint : MonoBehaviour
     [Header("Checkpoint Settings")]
     [SerializeField] private GameObject respawnPoint;
     [SerializeField] private Vector3 triggerSize = new Vector3(3f, 3f, 3f);
-    
+    [SerializeField] private ParticleSystem checkParticles;
+    [SerializeField] private AudioClip respawnSound;
+    public AudioSource audioSource;
+
     private BoxCollider triggerArea;
 
     void Awake()
@@ -47,6 +51,8 @@ public class Checkpoint : MonoBehaviour
     private void ActivateCheckpoint()
     {
         EventManager.RaiseEvent(new GameplayEvents.CheckpointActivateEvent(this.respawnPoint));
+        checkParticles.Play();
+        audioSource.PlayOneShot(respawnSound, 1);
     }
 
     private void OnDrawGizmos()
