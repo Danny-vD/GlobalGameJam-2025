@@ -1,12 +1,13 @@
+using UnityEngine;
 using VDFramework.EventSystem;
 
 namespace GameplayEvents
 {
 	public class CheckpointActivateEvent : VDEvent<CheckpointActivateEvent>
 	{
-        public Checkpoint checkpoint;
+        public GameObject checkpoint;
 
-        public CheckpointActivateEvent(Checkpoint checkpoint)
+        public CheckpointActivateEvent(GameObject checkpoint)
         {
             this.checkpoint = checkpoint;
         }
