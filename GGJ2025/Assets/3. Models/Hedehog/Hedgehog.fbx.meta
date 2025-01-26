@@ -127,14 +127,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.9223771
+      - time: 0.8129244
         functionName: BubblePopParticles
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9158076
+      - time: 0.8262554
         functionName: PlayBubblePop
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -257,14 +257,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.07770271
+      - time: 0.037901714
         functionName: BubblePopParticles
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.09402728
+      - time: 0.04800738
         functionName: PlayBubblePop
         data: 
         objectReferenceParameter: {instanceID: 0}
