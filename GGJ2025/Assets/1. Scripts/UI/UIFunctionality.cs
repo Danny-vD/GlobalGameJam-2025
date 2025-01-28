@@ -7,7 +7,7 @@ namespace UI
     {
         public void Quit()
         {
-#if !UNITY_EDITOR
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.ExitPlaymode();
 #else
 			UnityEngine.Application.Quit();
@@ -37,6 +37,11 @@ namespace UI
 			}
 			
 			LoadScene(buildIndex);
+		}
+
+		public void LoadCurrentScene()
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
     }
 }
